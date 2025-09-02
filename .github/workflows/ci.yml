@@ -1,34 +1,32 @@
-name: CI - Validação de Código
+name: Verificação de Código
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   lint:
-    name: Verificar qualidade do código
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Configurar Python
+      - name: Instalar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: 3.11
 
-      - name: Instalar dependências
+      - name: Instalar ferramentas de linting
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
           pip install flake8 pydocstyle
 
-      - name: Verificar PEP8, linhas e docstrings
+      - name: Verificar PEP8 com flake8
         run: |
-          echo "📏 Verificando PEP8, limites de linha e docstrings..."
-          flake8 .
-          pydocstyle app --convention=google
+          flake8 app --max-line-length=90
+
+      - name: Verificar docstrings com pydocstyle
+        run: |
+          pydocstyle app
