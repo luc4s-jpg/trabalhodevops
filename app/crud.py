@@ -3,6 +3,7 @@
 from sqlalchemy.orm import Session
 from app import models, schemas
 
+
 # Clientes
 def criar_cliente(db: Session, cliente: schemas.ClienteCreate) -> models.Cliente:
     """Cria um novo cliente no banco de dados."""
@@ -24,8 +25,9 @@ def obter_cliente(db: Session, cliente_id: int) -> models.Cliente | None:
 
 
 # Pedidos
-def criar_pedido(db: Session, pedido: schemas.PedidoCreate,
-                 cliente_id: int) -> models.Pedido:
+def criar_pedido(
+    db: Session, pedido: schemas.PedidoCreate, cliente_id: int
+) -> models.Pedido:
     """Cria um novo pedido associado a um cliente."""
     db_pedido = models.Pedido(**pedido.model_dump(), cliente_id=cliente_id)
     db.add(db_pedido)

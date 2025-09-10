@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel
 
+
 class PedidoBase(BaseModel):
     """Schema base para pedidos."""
 
@@ -10,6 +11,7 @@ class PedidoBase(BaseModel):
 
 class PedidoCreate(PedidoBase):
     """Schema de criação de pedidos."""
+
     pass
 
 
@@ -32,6 +34,7 @@ class ClienteBase(BaseModel):
 
 class ClienteCreate(ClienteBase):
     """Schema de criação de clientes."""
+
     pass
 
 

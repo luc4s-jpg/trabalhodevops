@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 # Own libraries
 from app.database import Base
 
+
 class Cliente(Base):
     """Modelo para clientes."""
 
