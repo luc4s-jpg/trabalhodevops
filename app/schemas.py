@@ -23,6 +23,7 @@ class Pedido(PedidoBase):
 
     class Config:
         """Configurações do Pydantic."""
+
         orm_mode = True
 
 
@@ -47,4 +48,5 @@ class Cliente(ClienteBase):
 
     class Config:
         """Configurações do Pydantic."""
+
         orm_mode = True
