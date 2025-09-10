@@ -22,6 +22,7 @@ class Pedido(PedidoBase):
     cliente_id: int
 
     class Config:
+        """Configurações do Pydantic."""
         orm_mode = True
 
 
@@ -45,4 +46,5 @@ class Cliente(ClienteBase):
     pedidos: list[Pedido] = []
 
     class Config:
+        """Configurações do Pydantic."""
         orm_mode = True
