@@ -2,15 +2,12 @@
 
 # External libraries
 from fastapi import FastAPI
-from app.routers import pedidos
 
 # Internal libraries
 from app.routers.pedidos import router as pedidos_router
 from app.routers.clientes import router as clientes_router
 from app.database import Base, engine
 
-app = FastAPI()
-app.include_router(pedidos.router)
 
 Base.metadata.create_all(bind=engine)
 
