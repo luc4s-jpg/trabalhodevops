@@ -8,12 +8,14 @@ from app.database import SessionLocal
 router = APIRouter(prefix="/pedidos", tags=["Pedidos"])
 
 def get_db():
+
     """Cria e fecha a sessão com o banco de dados."""
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
 
 @router.post("/", response_model=schemas.Pedido)
 def criar_pedido(
