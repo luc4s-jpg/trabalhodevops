@@ -1,4 +1,4 @@
-name: Verificação de Código
+name: Verificação de Código e Segurança
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: Lint de Código
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +31,28 @@ jobs:
       - name: Verificar docstrings com pydocstyle
         run: |
           pydocstyle app
+
+  trivy-scan:
+    name: Scan de Vulnerabilidades com Trivy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy -y
+
+      - name: Construir imagem Docker
+        run: |
+          docker build -t easyorder-api .
+
+      - name: Rodar Trivy
+        run: |
+          trivy image --exit-code 0 --severity HIGH,CRITICAL easyorder-api
