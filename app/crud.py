@@ -1,6 +1,7 @@
-"""Funções CRUD para clientes e pedidos."""
+"""Funções CRUD para clientes, pedidos e relatórios."""
 
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from app import models, schemas
 
 
@@ -44,3 +45,26 @@ def listar_pedidos(db: Session, skip: int = 0, limit: int = 10) -> list:
 def obter_pedido(db: Session, pedido_id: int) -> models.Pedido | None:
     """Obtém um pedido pelo ID."""
     return db.query(models.Pedido).filter(models.Pedido.id == pedido_id).first()
+
+
+def relatorio_pedidos_por_cliente(db: Session) -> list[schemas.RelatorioPedidosCliente]:
+    """Gera relatório de total de pedidos por cliente."""
+    results = (
+        db.query(
+            models.Cliente.id.label("cliente_id"),
+            models.Cliente.nome.label("nome_cliente"),
+            func.count(models.Pedido.id).label("total_pedidos"),
+        )
+        .join(models.Pedido, models.Pedido.cliente_id == models.Cliente.id)
+        .group_by(models.Cliente.id, models.Cliente.nome)
+        .all()
+    )
+
+    return [
+        schemas.RelatorioPedidosCliente(
+            cliente_id=r.cliente_id,
+            nome_cliente=r.nome_cliente,
+            total_pedidos=r.total_pedidos,
+        )
+        for r in results
+    ]
