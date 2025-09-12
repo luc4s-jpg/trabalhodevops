@@ -50,3 +50,11 @@ class Cliente(ClienteBase):
         """Configurações do Pydantic."""
 
         orm_mode = True
+
+
+class RelatorioPedidosCliente(BaseModel):
+    """Schema para relatório de pedidos por cliente."""
+
+    cliente_id: int
+    nome_cliente: str
+    total_pedidos: int
