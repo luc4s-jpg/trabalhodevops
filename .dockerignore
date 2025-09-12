@@ -1,0 +1,29 @@
+# Ignorar ambientes e caches locais
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Ignore virtual env
+venv/
+ENV/
+env/
+
+# Ignore arquivos de sistema
+.DS_Store
+
+# Ignore arquivos Git
+.git
+.gitignore
+
+# Ignore IDEs
+.vscode/
+.idea/
+
+# Arquivos temporários
+*.log
+*.tmp
+
+# Cache do poetry/pip
+.cache/
