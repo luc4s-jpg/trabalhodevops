@@ -9,7 +9,6 @@ router = APIRouter(prefix="/pedidos", tags=["Pedidos"])
 
 
 def get_db():
-
     """Cria e fecha a sessão com o banco de dados."""
     db = SessionLocal()
     try:
