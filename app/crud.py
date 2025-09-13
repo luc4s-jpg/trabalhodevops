@@ -68,3 +68,45 @@ def relatorio_pedidos_por_cliente(db: Session) -> list[schemas.RelatorioPedidosC
         )
         for r in results
     ]
+
+# Produtos
+def criar_produto(db: Session, produto: schemas.ProdutoCreate) -> models.Produto:
+    """Cria um novo produto no banco de dados."""
+    db_produto = models.Produto(**produto.model_dump())
+    db.add(db_produto)
+    db.commit()
+    db.refresh(db_produto)
+    return db_produto
+
+
+def listar_produtos(db: Session, skip: int = 0, limit: int = 10) -> list:
+    """Lista todos os produtos com paginação."""
+    return db.query(models.Produto).offset(skip).limit(limit).all()
+
+
+def obter_produto(db: Session, produto_id: int) -> models.Produto | None:
+    """Obtém um produto pelo ID."""
+    return db.query(models.Produto).filter(models.Produto.id == produto_id).first()
+
+
+def atualizar_produto(
+    db: Session, produto_id: int, produto: schemas.ProdutoBase
+) -> models.Produto | None:
+    """Atualiza os dados de um produto existente."""
+    db_produto = db.query(models.Produto).filter(models.Produto.id == produto_id).first()
+    if db_produto:
+        for key, value in produto.model_dump().items():
+            setattr(db_produto, key, value)
+        db.commit()
+        db.refresh(db_produto)
+    return db_produto
+
+
+def deletar_produto(db: Session, produto_id: int) -> bool:
+    """Remove um produto do banco de dados."""
+    db_produto = db.query(models.Produto).filter(models.Produto.id == produto_id).first()
+    if db_produto:
+        db.delete(db_produto)
+        db.commit()
+        return True
+    return False

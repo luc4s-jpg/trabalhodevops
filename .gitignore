@@ -4,3 +4,4 @@ venv/
 *.pyo
 *.db
 .env
+.venv
