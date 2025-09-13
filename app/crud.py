@@ -69,6 +69,7 @@ def relatorio_pedidos_por_cliente(db: Session) -> list[schemas.RelatorioPedidosC
         for r in results
     ]
 
+
 # Produtos
 def criar_produto(db: Session, produto: schemas.ProdutoCreate) -> models.Produto:
     """Cria um novo produto no banco de dados."""

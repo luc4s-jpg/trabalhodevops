@@ -31,6 +31,7 @@ class Pedido(Base):
 
     cliente = relationship("Cliente", back_populates="pedidos")
 
+
 class Produto(Base):
     """Modelo para produtos."""
 

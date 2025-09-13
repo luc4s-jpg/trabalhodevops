@@ -21,8 +21,9 @@ def get_db():
 # cadastrar um produto
 @router.post("/criar", response_model=schemas.Produto)
 def criar_produto(
-    produto: schemas.ProdutoCreate, 
-    db: Session = Depends(get_db)):
+    produto: schemas.ProdutoCreate,
+    db: Session = Depends(get_db)
+):
     """
     Cria um novo produto.
 
@@ -76,7 +77,7 @@ def obter_produto(produto_id: int, db: Session = Depends(get_db)):
 @router.put("/atualizar/{produto_id}", response_model=schemas.Produto)
 def atualizar_produto(
     produto_id: int,
-    produto: schemas.ProdutoCreate, 
+    produto: schemas.ProdutoCreate,
     db: Session = Depends(get_db)
 ):
     """
@@ -89,21 +90,20 @@ def atualizar_produto(
 
     Returns:
         O produto atualizado.
-    
+
     Raises:
         HTTPException: 404 Not Found se o produto não for encontrado.
     """
     produto_atualizado = crud.atualizar_produto(db, produto_id, produto)
     if not produto_atualizado:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
-    
     return produto_atualizado
 
 
 #  deletar um produto
 @router.delete("/deletar/{produto_id}", status_code=status.HTTP_200_OK)
 def deletar_produto(
-    produto_id: int, 
+    produto_id: int,
     db: Session = Depends(get_db)
 ):
     """
@@ -115,12 +115,12 @@ def deletar_produto(
 
     Returns:
         Uma mensagem de sucesso.
-    
+
     Raises:
         HTTPException: 404 Not Found se o produto não for encontrado.
     """
     produto_deletado = crud.deletar_produto(db, produto_id)
     if not produto_deletado:
         raise HTTPException(status_code=404, detail="Não foi possível deletar o produto")
-    
+
     return {"message": "Produto deletado com sucesso."}
