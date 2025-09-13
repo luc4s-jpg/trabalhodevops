@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from app.routers.pedidos import router as pedidos_router
 from app.routers.clientes import router as clientes_router
 from app.routers.relatorios import router as relatorios_router
+from app.routers.produtos import router as produtos_router
 from app.database import Base, engine
 
 
@@ -36,3 +37,4 @@ def read_root():
 app.include_router(pedidos_router, prefix="/pedidos", tags=["Pedidos"])
 app.include_router(clientes_router, prefix="/clientes", tags=["Clientes"])
 app.include_router(relatorios_router, prefix="/relatorios", tags=["Relatórios"])
+app.include_router(produtos_router)

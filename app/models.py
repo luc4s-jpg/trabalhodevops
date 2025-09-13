@@ -30,3 +30,15 @@ class Pedido(Base):
     cliente_id = Column(Integer, ForeignKey("clientes.id"))
 
     cliente = relationship("Cliente", back_populates="pedidos")
+
+
+class Produto(Base):
+    """Modelo para produtos."""
+
+    __tablename__ = "produtos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String, index=True, nullable=False)
+    preco = Column(Integer, nullable=False)
+    categoria = Column(String, index=True, nullable=False)
+    qtdEstoque = Column(Integer, nullable=False)

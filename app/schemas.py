@@ -58,3 +58,29 @@ class RelatorioPedidosCliente(BaseModel):
     cliente_id: int
     nome_cliente: str
     total_pedidos: int
+
+
+class ProdutoBase(BaseModel):
+    """Schema base para produtos."""
+
+    nome: str
+    preco: float
+    categoria: str
+    qtdEstoque: int
+
+
+class ProdutoCreate(ProdutoBase):
+    """Schema de criação de produtos."""
+
+    pass
+
+
+class Produto(ProdutoBase):
+    """Schema de leitura de produtos."""
+
+    id: int
+
+    class Config:
+        """Configurações do Pydantic."""
+
+        orm_mode = True
