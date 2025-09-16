@@ -1,6 +1,7 @@
 """Esquemas Pydantic para validação de dados da API."""
 
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class PedidoBase(BaseModel):
@@ -82,5 +83,39 @@ class Produto(ProdutoBase):
 
     class Config:
         """Configurações do Pydantic."""
+
+        orm_mode = True
+
+
+# Pagamento
+class PagamentoBase(BaseModel):
+    """Schema base para pagamentos."""
+
+    pedido_id: int
+    valor: float
+    forma_pagamento: str
+
+
+class PagamentoCreate(PagamentoBase):
+    """Schema para criar novos pagamentos."""
+
+    pass
+
+
+class PagamentoUpdate(BaseModel):
+    """Schema para atualizar o status de um pagamento."""
+
+    status: str  # 'pendente', 'pago', 'cancelado'
+
+
+class Pagamento(PagamentoBase):
+    """Schema para leitura de pagamentos."""
+
+    id: int
+    status: str
+    created_at: datetime
+
+    class Config:
+        """Configurações do Pydantic para o schema Pagamento."""
 
         orm_mode = True
