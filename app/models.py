@@ -47,7 +47,7 @@ class Produto(Base):
 
 
 class Entrega(Base):
-    """Modelo para entregas"""
+    """Modelo para entregas."""
 
     __tablename__ = "entregas"
 
