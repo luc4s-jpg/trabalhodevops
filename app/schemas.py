@@ -97,6 +97,7 @@ class EntregaBase(BaseModel):
 
 class EntregaCreate(EntregaBase):
     """Schema de criação de entregas."""
+
     pedido_id: int
 
 
