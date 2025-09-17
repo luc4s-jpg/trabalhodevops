@@ -1,6 +1,8 @@
 """Esquemas Pydantic para validação de dados da API."""
 
 from pydantic import BaseModel
+from datetime import datetime
+
 
 
 class PedidoBase(BaseModel):
@@ -79,6 +81,31 @@ class Produto(ProdutoBase):
     """Schema de leitura de produtos."""
 
     id: int
+
+    class Config:
+        """Configurações do Pydantic."""
+
+        orm_mode = True
+
+
+class EntregaBase(BaseModel):
+    """Schema base para entregas."""
+
+    endereco: str
+    status: str
+    data_entrega: datetime
+
+
+class EntregaCreate(EntregaBase):
+    """Schema de criação de entregas."""
+    pedido_id: int
+
+
+class Entrega(EntregaBase):
+    """Schema de leitura de entregas."""
+
+    id: int
+    pedido_id: int
 
     class Config:
         """Configurações do Pydantic."""
