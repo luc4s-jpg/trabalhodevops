@@ -56,4 +56,3 @@ class Entrega(Base):
     status = Column(String, index=True, nullable=False)
     data_entrega = Column(DateTime, nullable=False, default=datetime.now)
     pedido_id = Column(Integer, ForeignKey("pedidos.id"), nullable=False)
-    

@@ -35,7 +35,7 @@ def read_root():
 
 
 # Inclui os routers existentes
-app.include_router(pedidos_router , prefix="/pedidos", tags=["Pedidos"])
+app.include_router(pedidos_router, prefix="/pedidos", tags=["Pedidos"])
 app.include_router(clientes_router, prefix="/clientes", tags=["Clientes"])
 app.include_router(relatorios_router, prefix="/relatorios", tags=["Relatórios"])
 app.include_router(produtos_router)

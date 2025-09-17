@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-
 class PedidoBase(BaseModel):
     """Schema base para pedidos."""
 

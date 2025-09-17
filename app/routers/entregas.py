@@ -1,6 +1,6 @@
 """Rotas relacionadas às entregas."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
@@ -70,4 +70,4 @@ def obter_entrega(entrega_id: int, db: Session = Depends(get_db)):
     db_entrega = crud.obter_entrega(db, entrega_id)
     if db_entrega is None:
         raise HTTPException(status_code=404, detail="Entrega não encontrada")
-    return db_entrega   
+    return db_entrega
